@@ -1,1 +1,64 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap');
+
+:root {
+  --menu-color: #dfdfdf;
+  --menu_red-color: #ef3100;
+  --yellow-color: #faa300;
+  --blue-color: #4286f6;
+  --green-color: #09aa2f;
+  --menu-font: Preahvihear, sans-serif;
+  --title-font: 'Alan Sans', sans-serif;
+  --poppins: Poppins, sans-serif;
+}
+
+/* * { */
+/*   font-family: 'Alan Sans', sans-serif; */
+/*   font-optical-sizing: auto; */
+/*   font-weight: <weight>; */
+/*   font-style: normal; */
+/* } */
+
+body {
+  font-family: 'Alan Sans', sans-serif;
+}
+
+floating_whatsapp {
+  font-size: 25px;
+  width: 40px;
+  height: 40px;
+  right: 5px;
+  line-height: 38px;
+}
+
+.floating_whatsapp {
+  width: 50px;
+  height: 50px;
+  background-color: var(--green-color);
+  position: fixed;
+  bottom: 30px;
+  left: 15px;
+  border-radius: 50%;
+  font-size: 30px;
+  color: #fff;
+  line-height: 48px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.floating_whatsapp fa-icon {
+  transition: 0.6s;
+}
+
+.floating_whatsapp:hover fa-icon {
+  transform: rotate(360deg);
+}
+
+.hero_title_h1 {
+  font-size: 100px !important;
+  font-family: var(--title-font);
+}
+
+.offer_span {
+  color: var(--menu_red-color);
+  font-size: 75px;
+}
