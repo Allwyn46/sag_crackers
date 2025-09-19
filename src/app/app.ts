@@ -5,10 +5,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { NgStyle } from '@angular/common';
+import { Prodtable } from './prodtable/prodtable';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Hero, FontAwesomeModule, NgStyle],
+  imports: [RouterOutlet, Hero, FontAwesomeModule, NgStyle, Prodtable],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

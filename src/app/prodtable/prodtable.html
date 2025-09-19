@@ -1,0 +1,58 @@
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-bordered table-responsive">
+        <thead class="text-center">
+          <tr>
+            <th>S.No</th>
+            <th>Name Of the Product</th>
+            <th>MRP Rate</th>
+            <th>Discounted Price</th>
+            <th>Qty</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+
+<ng-container *ngFor="let item of products; let i = index">
+  <!-- Category Row -->
+  <tr *ngIf="item.type === 'category'" class="table-primary fw-bold">
+    <td colspan="6">{{ item.name }}</td>
+  </tr>
+
+  <!-- Product Row -->
+  <tr *ngIf="item.type === 'product'" class="text-center">
+    <td>{{ getSerialNumber(i) }}</td>
+    <td>{{ item.name }}</td>
+    <td>{{ item.mrp }}</td>
+    <td>{{ item.discount }}</td>
+    <td>
+      <input
+        type="number"
+        name="req-{{i}}"
+        [(ngModel)]="item.requirement"
+        (ngModelChange)="calculateFinalPrice(item,i)"
+        class="form-control text-center"
+      />
+    </td>
+    <td>
+      <input
+        type="text"
+        class="form-control text-center"
+        [value]="productFinalPrices[i]"
+        disabled
+      />
+    </td>
+  </tr>
+</ng-container>
+
+<tr class="fw-bold table-secondary text-end">
+  <td colspan="5">Grand Total</td>
+  <td>{{ getGrandTotal() }}</td>
+</tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
