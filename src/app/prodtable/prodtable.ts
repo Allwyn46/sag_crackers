@@ -2,14 +2,21 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 
-interface ProductType {
-  type: string;
+type Category = {
+  type: 'category';
+  name: string;
+};
+
+type Product = {
+  type: 'product';
   name: string;
   mrp: number;
   discount: number;
   requirement: string;
-  finaleprice: number;
-}
+  finaleprice: string;
+};
+
+type ProductType = Category | Product;
 
 @Component({
   selector: 'app-prodtable',
@@ -39,7 +46,7 @@ export class Prodtable {
     return count;
   }
 
-  products = [
+  products: ProductType[] = [
     { type: 'category', name: 'SPARKLERS' },
     {
       type: 'product',
@@ -47,7 +54,7 @@ export class Prodtable {
       mrp: 30,
       discount: 15,
       requirement: '',
-      finaleprice: '',
+      finaleprice: '0',
     },
     {
       type: 'product',
@@ -55,7 +62,7 @@ export class Prodtable {
       mrp: 36,
       discount: 18,
       requirement: '',
-      finaleprice: '',
+      finaleprice: '0',
     },
     {
       type: 'product',
@@ -63,7 +70,7 @@ export class Prodtable {
       mrp: 44,
       discount: 22,
       requirement: '',
-      finaleprice: '',
+      finaleprice: '0',
     },
     {
       type: 'product',
@@ -71,7 +78,7 @@ export class Prodtable {
       mrp: 50,
       discount: 25,
       requirement: '',
-      finaleprice: '',
+      finaleprice: '0',
     },
     {
       type: 'product',
@@ -79,7 +86,7 @@ export class Prodtable {
       mrp: 60,
       discount: 30,
       requirement: '',
-      finaleprice: '',
+      finaleprice: '0',
     },
     // ...
     { type: 'category', name: '2024 PREMIUM' },
@@ -89,7 +96,7 @@ export class Prodtable {
       mrp: 80,
       discount: 40,
       requirement: '',
-      finaleprice: '',
+      finaleprice: '0',
     },
     {
       type: 'product',
@@ -97,7 +104,7 @@ export class Prodtable {
       mrp: 90,
       discount: 45,
       requirement: '',
-      finaleprice: '',
+      finaleprice: '0',
     },
     // ...
     { type: 'category', name: 'FLOWER POTS' },
