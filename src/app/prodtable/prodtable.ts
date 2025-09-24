@@ -16,6 +16,9 @@ export class Prodtable {
   masterDetails = inject(Master);
   productFinalPrices: number[] = [];
 
+  user_name : string = "";
+  user_mobile_number : string = "";
+
   calculateFinalPrice(item: ProductType, index: number) {
     if (item.type === 'product') {
       const finalPrice = Number(item.discount) * Number(item.requirement || 0);
@@ -74,6 +77,8 @@ export class Prodtable {
       orders,
       cost,
       email: 'frankie.sagay@gmail.com',
+      customer_name: this.user_name,
+      customer_mobile: this.user_mobile_number,
     };
 
     emailjs

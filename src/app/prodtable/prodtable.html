@@ -128,15 +128,55 @@
           </tbody>
         </table>
       </div>
+
+      <div class="mb-3 row p-4">
+        <form #formValue="ngForm">
+          <div class="mb-3">
+            <label for="customer_name" class="form-label">Name</label>
+            <input type="text" #userNameModel="ngModel" [(ngModel)]="user_name" class="form-control" name="user_name" id="customer_name" required placeholder="Enter your name">
+
+            @if (userNameModel.touched) {
+                <div class="text-danger">
+                  @if (userNameModel.errors?.['required']) {
+                    <span>
+                      This field is required
+                    </span>
+                  }   
+                </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="customer_mobile_number">Mobile Number</label>
+            <input type="text" #userMobileNumber="ngModel" class="form-control" [(ngModel)]="user_mobile_number" required id="customer_mobile_number" placeholder="Enter your mobile number" name="user_mobile_number" minlength="10" appDigitsonly maxlength="10" inputmode="numeric">
+
+            @if (userMobileNumber.touched) {
+                <div class="text-danger">
+                  @if(userMobileNumber.errors?.['required']){
+                    <span>
+                      This field is required
+                    </span>
+                  }
+                  @if(userMobileNumber.errors?.['minlength']){
+                    <span>
+                      Minimum 10 characters is required
+                    </span>
+                  }
+                </div>
+            }
+          </div>
+        </form>
+      </div>
+
       <div class="modal-footer">
-        <button
+      <button
           type="button"
           class="btn btn-secondary"
           data-bs-dismiss="modal"
         >
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="sendEmail()">Confirm Order</button>
+        <button type="button" [disabled]="formValue.invalid" class="btn btn-primary" (click)="sendEmail()">Confirm Order</button>
       </div>
     </div>
   </div>
