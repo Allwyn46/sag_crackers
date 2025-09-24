@@ -1,32 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import emailjs from 'emailjs-com';
-import Swal from 'sweetalert2'
-
-type Category = {
-  type: 'category';
-  name: string;
-};
-
-type Product = {
-  type: 'product';
-  name: string;
-  mrp: number;
-  discount: number;
-  requirement: string;
-  finaleprice: string;
-};
-
-type ProductType = Category | Product;
+import Swal from 'sweetalert2';
+import { Master, ProductType } from '../master';
+import { Digitsonly } from '../digitsonly';
 
 @Component({
   selector: 'app-prodtable',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Digitsonly],
   templateUrl: './prodtable.html',
   styleUrl: './prodtable.css',
 })
 export class Prodtable {
+  masterDetails = inject(Master);
   productFinalPrices: number[] = [];
 
   calculateFinalPrice(item: ProductType, index: number) {
@@ -52,70 +39,7 @@ export class Prodtable {
     return this.products.some((p) => p.type === 'product' && +p.requirement > 0);
   }
 
-  products: ProductType[] = [
-    { type: 'category', name: 'SPARKLERS' },
-    {
-      type: 'product',
-      name: '7 cm Colour Sparklers',
-      mrp: 30,
-      discount: 15,
-      requirement: '',
-      finaleprice: '0',
-    },
-    {
-      type: 'product',
-      name: '10 cm Electric Sparklers',
-      mrp: 36,
-      discount: 18,
-      requirement: '',
-      finaleprice: '0',
-    },
-    {
-      type: 'product',
-      name: '10 cm Colour Sparklers',
-      mrp: 44,
-      discount: 22,
-      requirement: '',
-      finaleprice: '0',
-    },
-    {
-      type: 'product',
-      name: '12 cm Electric Sparklers',
-      mrp: 50,
-      discount: 25,
-      requirement: '',
-      finaleprice: '0',
-    },
-    {
-      type: 'product',
-      name: '12 cm Colour Sparklers',
-      mrp: 60,
-      discount: 30,
-      requirement: '',
-      finaleprice: '0',
-    },
-    // ...
-    { type: 'category', name: '2024 PREMIUM' },
-    {
-      type: 'product',
-      name: '10 cm 50/50 Double Colour',
-      mrp: 80,
-      discount: 40,
-      requirement: '',
-      finaleprice: '0',
-    },
-    {
-      type: 'product',
-      name: '10 cm 4 in 1',
-      mrp: 90,
-      discount: 45,
-      requirement: '',
-      finaleprice: '0',
-    },
-    // ...
-    // { type: 'category', name: 'FLOWER POTS' },
-    // continue here
-  ];
+  products: ProductType[] = this.masterDetails.masterProducts;
 
   //  EMAIL FUNCTION
   sendEmail() {
@@ -135,41 +59,38 @@ export class Prodtable {
         }
         return null;
       })
-      .filter(Boolean); // remove nulls
+      .filter(Boolean);
 
     // Cost summary
     const cost = {
-      shipping: 0, // you can calculate real shipping if needed
-      tax: 0, // calculate tax if applicable
+      shipping: 0,
+      tax: 0,
       total: this.getGrandTotal(),
     };
 
     // Template parameters must match the email template placeholders
     const templateParams = {
       order_id: orderId,
-      orders, // this matches {{#orders}} loop
+      orders,
       cost,
-      email: 'allwyns.per@gmail.com', // replace with the actual customer email
+      email: 'frankie.sagay@gmail.com',
     };
-
-    
 
     emailjs
       .send('service_zfcc7ui', 'template_xab3ko2', templateParams, 'ox63bWoQDr3hXhjVu')
       .then((res) => {
-          Swal.fire({
-              title: "Order Placed Successfully!",
-              text: "Will Get back to you shortly",
-              icon: "success",
-              showCancelButton: false,
-              confirmButtonColor: "#3085d6",
-              confirmButtonText: "Cool"
-            }).then((result) => {
-              if (result.isConfirmed) {
-                window.location.reload();
-              }
-            });
-        
+        Swal.fire({
+          title: 'Order Placed Successfully!',
+          text: 'Will Get back to you shortly',
+          icon: 'success',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Cool',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
       })
       .catch((err) => {
         console.error('FAILED...', err);
