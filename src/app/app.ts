@@ -1,9 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Hero } from './hero/hero';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { NgStyle } from '@angular/common';
 import { Prodtable } from './prodtable/prodtable';
 
@@ -15,6 +15,7 @@ import { Prodtable } from './prodtable/prodtable';
 })
 export class App {
   faWhatsapp = faWhatsapp;
+  phoneIcon = faPhone;
   textColor = 'red';
   fontSize = 20;
 }
