@@ -16,8 +16,8 @@ export class Prodtable {
   masterDetails = inject(Master);
   productFinalPrices: number[] = [];
 
-  user_name : string = "";
-  user_mobile_number : string = "";
+  user_name: string = '';
+  user_mobile_number: string = '';
 
   calculateFinalPrice(item: ProductType, index: number) {
     if (item.type === 'product') {
@@ -82,7 +82,7 @@ export class Prodtable {
     };
 
     emailjs
-      .send('service_zfcc7ui', 'template_xab3ko2', templateParams, 'ox63bWoQDr3hXhjVu')
+      .send('service_tpahmne', 'template_xab3ko2', templateParams, 'ox63bWoQDr3hXhjVu')
       .then((res) => {
         Swal.fire({
           title: 'Order Placed Successfully!',
@@ -90,7 +90,7 @@ export class Prodtable {
           icon: 'success',
           showCancelButton: false,
           confirmButtonColor: '#3085d6',
-          confirmButtonText: 'Cool',
+          confirmButtonText: 'Okay',
         }).then((result) => {
           if (result.isConfirmed) {
             window.location.reload();
