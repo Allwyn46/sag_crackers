@@ -20,6 +20,12 @@
 
 body {
   font-family: 'Alan Sans', sans-serif;
+  background: #0b0b1a;
+}
+
+.site-content {
+  position: relative;
+  z-index: 1; /* keeps your content above the fireworks canvas */
 }
 
 floating_whatsapp {

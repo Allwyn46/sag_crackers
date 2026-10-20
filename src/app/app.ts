@@ -6,10 +6,11 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { NgStyle } from '@angular/common';
 import { Prodtable } from './prodtable/prodtable';
+import { FireworksComponent } from './fireworks/fireworks';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Hero, FontAwesomeModule, NgStyle, Prodtable],
+  imports: [Hero, FireworksComponent, FontAwesomeModule, NgStyle, Prodtable],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
