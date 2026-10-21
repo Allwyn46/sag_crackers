@@ -19,6 +19,9 @@ export class Prodtable {
   user_name: string = '';
   user_mobile_number: string = '';
 
+  // Owner's WhatsApp number: country code + number, digits only
+  private readonly ownerWhatsapp = '919677912570';
+
   calculateFinalPrice(item: ProductType, index: number) {
     if (item.type === 'product') {
       const finalPrice = Number(item.discount) * Number(item.requirement || 0);
@@ -44,13 +47,9 @@ export class Prodtable {
 
   products: ProductType[] = this.masterDetails.masterProducts;
 
-  //  EMAIL FUNCTION
-  sendEmail() {
-    // Generate a unique order ID
-    const orderId = `ORD-${Date.now()}`;
-
-    // Build product list for the email template
-    const orders = this.products
+  // Ordered items only (shared by the email and the WhatsApp message)
+  private getOrderedItems() {
+    return this.products
       .map((p, i) => {
         if (p.type === 'product' && +p.requirement > 0) {
           return {
@@ -62,7 +61,39 @@ export class Prodtable {
         }
         return null;
       })
-      .filter(Boolean);
+      .filter((item): item is NonNullable<typeof item> => item !== null);
+  }
+
+  // WHATSAPP: opens WhatsApp with the order pre-filled, addressed to the owner
+  private openWhatsapp(orderId: string, orders: ReturnType<Prodtable['getOrderedItems']>) {
+    const itemLines = orders.map((o, i) => `${i + 1}. ${o.name} x ${o.units} = ₹${o.price}`);
+
+    const message = [
+      `*New Order ${orderId}*`,
+      '',
+      `Name: ${this.user_name}`,
+      `Mobile: ${this.user_mobile_number}`,
+      '',
+      '*Items*',
+      ...itemLines,
+      '',
+      `*Total: ₹${this.getGrandTotal()}*`,
+    ].join('\n');
+
+    const url = `https://wa.me/${this.ownerWhatsapp}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  }
+
+  //  EMAIL FUNCTION
+  sendEmail() {
+    // Generate a unique order ID
+    const orderId = `ORD-${Date.now()}`;
+
+    // Build product list for the email template
+    const orders = this.getOrderedItems();
+
+    // Open WhatsApp first (must happen directly inside the click handler)
+    this.openWhatsapp(orderId, orders);
 
     // Cost summary
     const cost = {
@@ -86,7 +117,7 @@ export class Prodtable {
       .then((res) => {
         Swal.fire({
           title: 'Order Placed Successfully!',
-          text: 'Will Get back to you shortly',
+          text: 'Please tap Send in WhatsApp to confirm your order. We will get back to you shortly.',
           icon: 'success',
           showCancelButton: false,
           confirmButtonColor: '#3085d6',
