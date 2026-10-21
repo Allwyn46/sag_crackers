@@ -5,16 +5,19 @@ import emailjs from 'emailjs-com';
 import Swal from 'sweetalert2';
 import { Master, ProductType } from '../master';
 import { Digitsonly } from '../digitsonly';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-prodtable',
-  imports: [CommonModule, FormsModule, Digitsonly],
+  imports: [CommonModule, FormsModule, Digitsonly, FontAwesomeModule],
   templateUrl: './prodtable.html',
   styleUrl: './prodtable.css',
 })
 export class Prodtable {
   masterDetails = inject(Master);
   productFinalPrices: number[] = [];
+  faWhatsapp = faWhatsapp;
 
   user_name: string = '';
   user_mobile_number: string = '';
